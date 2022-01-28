@@ -4,18 +4,7 @@ using System.Linq;
 
 namespace Interview.Cash
 {
-    /* Possible Tech Assessment Questions:
-     *
-     * - What are the pros/cons of this design?
-     * - What kind of unit tests would you write for CashRegister?
-     * - Introduce a logical bug in the code and determine where using unit tests
-     *      e.g. change CountBills method body to: "return bills.Keys.Where(v => delineation == 0 ? true : v == delineation).Count()"
-     *      e.g. Remove equality check in Swap()
-     * - Remove a method and practice TDD by having candidate write the method based on existing unit tests
-     * - Add a small feature...
-     *      e.g. Customize withdrawal to allow for certain bills (instead of minimum bills logic)
-     * - Complexity analysis - more optimal data structures? Implement less efficient solution and have candidate optimize
-     */
+
 
     public class InsufficientFundsException : Exception
     {

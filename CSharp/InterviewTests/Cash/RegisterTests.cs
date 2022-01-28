@@ -70,103 +70,19 @@ namespace InterviewTests
         [Test]
         public void Register_Withdraw_MinimizesBills()
         {
-            // arrange
-            var r = new CashRegister();
-            r.AddBills(new List<ICashBill> {
-                new UsdBill(UsdDelineation.Hundred),
-                new UsdBill(UsdDelineation.Twenty),
-                new UsdBill(UsdDelineation.Twenty),
-                new UsdBill(UsdDelineation.Twenty),
-                new UsdBill(UsdDelineation.Twenty),
-                new UsdBill(UsdDelineation.Twenty),
-                new UsdBill(UsdDelineation.One)
-            });
 
-            // act
-            var cash = r.Withdraw(101);
-
-            // assert
-            Assert.AreEqual(2, cash.Count());
-            Assert.AreEqual(5, r.CountBills(20));
         }
 
         [Test]
         public void Register_Withdraw_InsufficientFundsThrows()
         {
-            // arrange
-            var r = new CashRegister();
-            r.AddBills(new List<ICashBill> {
-                new UsdBill(UsdDelineation.Twenty),
-                new UsdBill(UsdDelineation.Five),
-                new UsdBill(UsdDelineation.One)
-            });
 
-            // act / assert
-            Assert.Throws<InsufficientFundsException>(() =>
-            {
-                var cash = r.Withdraw(27);
-            });
         }
 
         [Test]
         public void Register_Withdraw_InsufficientBillsThrows()
         {
-            // arrange
-            var r = new CashRegister();
-            r.AddBills(new List<ICashBill> {
-                new UsdBill(UsdDelineation.Five),
-                new UsdBill(UsdDelineation.One),
-                new UsdBill(UsdDelineation.One)
-            });
 
-            // act / assert
-            Assert.Throws<InsufficientBillsException>(() =>
-            {
-                var cash = r.Withdraw(3);
-            });
-        }
-
-        [Test]
-        public void Register_Swap_EqualityTestHappens()
-        {
-            // arrange
-            var expectedCashValue = 17;
-            var r = new CashRegister();
-            r.AddBills(new List<ICashBill> {
-                new UsdBill(UsdDelineation.Ten),
-                new UsdBill(UsdDelineation.Five),
-                new UsdBill(UsdDelineation.One),
-                new UsdBill(UsdDelineation.One)
-            });
-            Assert.AreEqual(expectedCashValue, r.Value, "Initial value before test");
-            // withdrawing ten
-            var swapRemoval = new Dictionary<int, int> { { 10, 1 } };
-            // only depositing nine
-            var swapInsert = new List<ICashBill> {
-                new UsdBill(UsdDelineation.Five),
-                new UsdBill(UsdDelineation.One),
-                new UsdBill(UsdDelineation.One),
-                new UsdBill(UsdDelineation.One),
-                new UsdBill(UsdDelineation.One),
-            };
-
-            // act / assert
-            Assert.Throws<InvalidOperationException>(() =>
-            {
-                r.Swap(swapInsert, swapRemoval);
-            });
-            Assert.AreEqual(expectedCashValue, r.Value, "No change in value after throwing exception");
-
-            // act
-            // change insert to have value of 10
-            swapInsert.Add(new UsdBill(UsdDelineation.One));
-            r.Swap(swapInsert, swapRemoval);
-
-            // assert
-            Assert.AreEqual(expectedCashValue, r.Value, "No change in value expected");
-            Assert.AreEqual(0, r.CountBills(10));
-            Assert.AreEqual(2, r.CountBills(5));
-            Assert.AreEqual(7, r.CountBills(1));
         }
     }
 }

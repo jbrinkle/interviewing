@@ -6,11 +6,7 @@ namespace InterviewTests
 {
     public class BillsTests
     {
-        /* Possible Tech Assessment questions
-         *
-         * - What kind of test cases would be useful for scenario x?
-         * - Benefits of TestCase attribute over Test attribute
-         */ 
+
 
         [SetUp]
         public void Setup()
